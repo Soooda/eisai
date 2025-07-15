@@ -116,7 +116,7 @@ class HalfWarper(nn.Module):
             return x
         else:
             with torch.no_grad():
-                return kornia.morphology.open(x, torch.ones(k,k,device=x.device))
+                return kornia.morphology.opening(x, torch.ones(k,k,device=x.device))
     def forward(self, img0, img1, flow0, flow1, z0, z1, k, t=0.5, return_more=False):
         # forewarps
         flow0_ = (1-t) * flow0

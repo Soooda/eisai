@@ -71,7 +71,9 @@ except:
 try:
     # @cupy.memoize(for_each_device=True)
     def cupy_launch(func, kernel):
-        return cupy.cuda.compile_with_cache(kernel).get_function(func)
+        # return cupy.cuda.compile_with_cache(kernel).get_function(func)
+        module = cupy.RawModule(code=kernel)
+        return module.get_function(func)
 except:
     cupy_launch = lambda func,kernel: None
 
